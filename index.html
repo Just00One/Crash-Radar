@@ -515,7 +515,6 @@
 </div>
 
 <script>
-    // نظام موحد لتخزين IDs والأكواد المشتركة وجعلها افتراضية لتظهر لأي مستخدم يفتح الموقع
     const GLOBAL_MASTER_KEY = "vip_3d_shared_global_db_v1";
 
     function getGlobalDB() {
@@ -543,7 +542,6 @@
         let savedTheme = localStorage.getItem('user_theme_style') || 'theme-gold';
         document.body.className = savedTheme;
 
-        // التأكد من وجود قاعدة البيانات الافتراضية المشتركة
         getGlobalDB();
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -876,7 +874,7 @@
             
             if (item.status === "جاهز" || !item.expiresAt) {
                 item.status = "active";
-                item.expiresAt = now + (10 * 60 * 1000); // 10 دقائق كاملة
+                item.expiresAt = now + (10 * 60 * 1000);
                 saveGlobalDB(db);
             }
 
@@ -925,7 +923,7 @@
             document.getElementById('id-screen').style.display = 'none'; 
             startServerConnection(); 
         } else { 
-            alert("عذراً، هذا الـ ID غير مسجل أو غير مفعل من قبل الإدارة! يرجى التواصل مع الدعم الفني لتفعيله."); 
+            alert("عذراً، هذا الـ ID غير مسجل أو غير مفعل من قبل الإدارة! يرجى التأكد من كتابته بشكل صحيح."); 
         } 
     }
 
