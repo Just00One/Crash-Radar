@@ -520,7 +520,12 @@
     function getGlobalDB() {
         let defaultData = {
             codes: { "VIP3D-START1": { status: "جاهز", expiresAt: null } },
-            ids: { "123456": { status: "مفعل نشط", attempts: 3 } }
+            ids: { 
+                "123456": { status: "مفعل نشط", attempts: 3 },
+                "1690313233": { status: "مفعل نشط", attempts: 3 },
+                "1501217291": { status: "مفعل نشط", attempts: 3 },
+                "1658356877": { status: "مفعل نشط", attempts: 3 }
+            }
         };
         let stored = localStorage.getItem(GLOBAL_MASTER_KEY);
         if (!stored) {
@@ -528,7 +533,15 @@
             return defaultData;
         }
         try {
-            return JSON.parse(stored);
+            let parsed = JSON.parse(stored);
+            // التأكد من وجود الـ IDs الجديدة إذا كان التخزين المحلي قديماً
+            if (!parsed.ids) parsed.ids = {};
+            ["1690313233", "1501217291", "1658356877"].forEach(id => {
+                if (!parsed.ids[id]) {
+                    parsed.ids[id] = { status: "مفعل نشط", attempts: 3 };
+                }
+            });
+            return parsed;
         } catch(e) {
             return defaultData;
         }
@@ -1266,6 +1279,7 @@
 
     function resetToMineMenu() {
         currentActiveGame = null;
+        document.getElementById('mineGameGameArea') && (document.getElementById('mineGameGameArea').style.display = 'none');
         document.getElementById('mineGameArea').style.display = 'none';
         document.getElementById('mineMainMenu').style.display = 'block';
     }
